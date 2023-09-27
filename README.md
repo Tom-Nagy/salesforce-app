@@ -259,7 +259,18 @@ Follow the steps below to create an anonymous script to test the apex class.
 
 * Import LightningElement and wire from the lwc engine.
 * Import the apex methods defined in OppsList that we are using in this file.
-* 
+* I have used @wire decorator to bind the data returned from the apex call to the lwc component.
+* I have implemented getter method to set component attribute and variables such as:
+  * page data
+  * current page number
+  * total count of opportunity records
+  * total pages based on displaying 10 records per page
+  * first page and last page attribute set to false or right depending on the page number compared to the total number of pages.
+* I have implemented methods to:
+  * navigate through pages of records
+  * reset the page
+  * delete single row
+  * bulk delete selected rows
 
 ## Bugs
 
