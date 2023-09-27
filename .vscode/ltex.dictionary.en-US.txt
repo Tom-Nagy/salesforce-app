@@ -3,3 +3,8 @@ Opps
 SOQL
 OppsList
 getOppsList
+LightningElement
+lwc
+@wire
+@api
+cls

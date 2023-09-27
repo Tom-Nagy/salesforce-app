@@ -12,7 +12,8 @@ Link to the Opps app org : **[Opps](https://d06000001b8weeay-dev-ed.develop.ligh
 * [Create a Lightning Web Component](#Create-a-Lightning-Web-Component)
 * [Create an App, a Page and deploy your LWC](#create-an-app-a-page-and-deploy-your-lwc)
 * [Code components](#code-components)
-  * [Apex]
+  * [Apex class](#apex-class-oppslistcls)
+  * [JavaScript file opps.js](#javascript-file-oppsjs)
 * [Bugs](#Bugs)
   - [Solved](#Solved)
 * [Credit and Docs](#Credit-and-Docs)
@@ -140,7 +141,37 @@ All the steps are found in the following Trailhead [Lightning app builder](https
 
 ## Code components
 
-### Apex Class
+### HTML
+
+* HTML provides the structure for the component.
+* Lightning web component HTML files all include the ```template``` tag.
+* The ```template``` tag contains the HTML that defines the structure of your component.
+
+### Jvascript
+
+* JavaScript defines the core business logic and event handling.
+* Export:
+  * AllOpps is the name I have assigned to my component class.
+  * The export statement defines a class that extends the LightningElement class. As a best practice, the name of the class usually matches the file name of the JavaScript class, but it's not a requirement.
+* Modules:
+  * Lightning Web Components uses modules (built-in modules were introduced in ECMAScript 6) to bundle core functionality and make it accessible to the JavaScript in your component file. The core module for Lightning web components is lwc.
+  * Begin the module with the import statement and specify the functionality of the module that your component uses.
+  * The import statement indicates the JavaScript uses the LightningElement functionality from the lwc module.
+* In the .js file, we often use the this keyword. The this keyword in JavaScript refers to the top level of the current context. Here, the context is this class.
+* Decorator:
+  * You can import multiple decorators, but a single property or function can have only one decorator. For example, a property can't have @api and @wire decorators.
+    * @wire: Gives you an easy way to get and bind data from a Salesforce org.
+    * @api: Makes a component or method public which makes it accessible from other component (parent, child ...).
+
+### .js-meta.xml
+
+* XML defines the metadata for Salesforce, including the design configuration for components intended for use in Lightning App Builder
+* ```apiVersion``` binds the component to a Salesforce API version.
+* ```isExposed``` (```true``` or ```false```) If ```isExposed``` is ```false```, the component isn't exposed to Lightning App Builder or Experience Builder.
+  * To allow the component to be used in Lightning App Builder or Experience Builder, set ```isExposed``` to ``true`` and define at least one ```<target>```, which is a type of Lightning page.
+  * ```targets``` specify which types of Lightning pages the component can be added to in the Lightning App Builder.
+
+### Apex Class OppsList.cls
 
 In Visual Studio Code, under ```force-app/main/default```, right-click on the ```classes``` sub-folder and select ```SFDX: Create Apex Class```.
 
@@ -187,6 +218,7 @@ The query compiles and thus is type-checked at compile time.
   ```
   * The method ```getOppsList()``` returns the list of opportunities records (as an Array) by querying the Opportunity object.
   * I used SOQL to write the queries referencing the object and the fields on the object.
+
 * ```apex
   // credit https://gist.github.com/sohalloran/5be1daf94a2d4e8fcd92df2cf6988e62
   @AuraEnabled(cacheable=true)
@@ -196,6 +228,7 @@ The query compiles and thus is type-checked at compile time.
   ```
   * The Method ```getAllOpps()``` returns the count of all the opportunities.
   * This is used for the pagination functionality.
+
 * ```apex
   // update opp
   @AuraEnabled
@@ -205,6 +238,7 @@ The query compiles and thus is type-checked at compile time.
   ```
   * The method ```updateOpp()``` use the update SOQL method to update records in the database.
   * An array (*oppToUpdate*) is passed to the method which is the array of records and fields to update.
+
 * ```apex
   // delete opp 
   @AuraEnabled
@@ -221,33 +255,68 @@ Follow the steps below to create an anonymous script to test the apex class.
 * Replace the contents of the file with the following code: System.debug(<your_class_name>.<your_method>()); :arrow_right: ```System.debug(OppsList.getOppsList());```
 * Open the Command Palette by pressing Ctrl+Shift+P (Windows) or Cmd+Shift+P (macOS/Linux) and type/select ```Execute Anonymous Apex```.
 
-### select LWC component
+## JavaScript file opps.js
+
+* Import LightningElement and wire from the lwc engine.
+* Import the apex methods defined in OppsList that we are using in this file.
+* 
+
+
+## Bugs
+
+sorting on opportunity name was not sorting correctly
+=> comparison of uppercase and lower case letter which holds different values in ascii.
+=> add toUppercaseCase method in order to compare with same data and solve the issue.
+
+
+### Solved
+
+## Terminology and definitions
+
+* @AuraEnabled(cacheable=true) 
+  * @AuraEnabled => ?
+  * (cacheable=true) => ?
+
+* SOQL methods
+  * delete and update
+
+* @wire
+
+* @track
+
+## Credit
+
+### Content
+
+credit to https://gist.github.com/sohalloran/5be1daf94a2d4e8fcd92df2cf6988e62 for the count Apex method
+
+Credit to https://www.apexhours.com/lightning-datatable-sorting-in-lightning-web-components/ for the sortData method.
+
+### Documentation
+
+https://trailhead.salesforce.com/content/learn/modules/lightning-web-components-basics/discover-lightning-web-components?trail_id=force_com_dev_beginner
+LWC basics
+Decorator
+Modules
+
+https://trailhead.salesforce.com/content/learn/projects/get-started-with-salesforce-development/write-business-logic-in-apex?trail_id=force_com_dev_beginner
+Build base class to query data
+
+https://trailhead.salesforce.com/content/learn/modules/apex_database/apex_database_dml
+Data Manipulation Language DML statement
+
+https://trailhead.salesforce.com/content/learn/modules/lightning-web-components-and-salesforce-data/use-apex-to-work-with-data?trail_id=build-lightning-web-components&trailmix_creator_id=sakthivel&trailmix_slug=lightning-web-component-lwc
+
+https://developer.salesforce.com/docs/platform/lwc/guide/js-props-getters-setters.html
+getter setter fucntions
+
+https://www.lightningdesignsystem.com/utilities/
+==> style classes
 
 navigate to https://developer.salesforce.com/docs/component-library/overview/components
 Search for list 
 
 0000000 https://developer.salesforce.com/docs/component-library/bundle/lightning-layout/example
-
-0000000 https://developer.salesforce.com/docs/component-library/bundle/lightning-datatable/example
-
-Save the file.
-Right click on the LWC folder and select SFDX: Deploy Source to Org.
-
-## Bugs
-
-### Solved
-
-
-
-## Credit and Docs 
-
-https://www.lightningdesignsystem.com/utilities/
-==> style classes
-
-
-
-******************************** EXTRA ********************************
-
 
 ## Commands
 
