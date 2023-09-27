@@ -236,7 +236,7 @@ The query compiles and thus is type-checked at compile time.
       update oppToUpdate;
   }
   ```
-  * The method ```updateOpp()``` use the update SOQL method to update records in the database.
+  * The method ```updateOpp()``` use the update SOQL DML operation to update records in the database.
   * An array (*oppToUpdate*) is passed to the method which is the array of records and fields to update.
 
 * ```apex
@@ -246,7 +246,7 @@ The query compiles and thus is type-checked at compile time.
       delete oppToDelete;
   }
   ```
-  * The method ```deleteOpp()``` use the delete SOQL method to delete records in the database.
+  * The method ```deleteOpp()``` use the delete SOQL DML operation to delete records in the database.
   * An array (*oppToDelete*) is passed to the method which is the array of records to delete.
 
 Follow the steps below to create an anonymous script to test the apex class.
@@ -261,12 +261,17 @@ Follow the steps below to create an anonymous script to test the apex class.
 * Import the apex methods defined in OppsList that we are using in this file.
 * 
 
-
 ## Bugs
 
-sorting on opportunity name was not sorting correctly
+Sorting on opportunity name was not sorting correctly
 => comparison of uppercase and lower case letter which holds different values in ascii.
-=> add toUppercaseCase method in order to compare with same data and solve the issue.
+=> add toUpperCase() method in order to compare with same data and solve the issue.
+```return a[fieldname].toUpperCase()```
+
+===> created a bug upon sorting on the amount column
+=> conversion to uppercase does not work for currencies or integer values
+=> added a conditional statement to check on which column it is sorting on
+```return fieldname !== 'Amount' ? a[fieldname].toUpperCase() : a[fieldname];```
 
 
 ### Solved

@@ -41,24 +41,19 @@ export default class AllOpps extends LightningElement {
     selectedRows;
     // bulk delete 
     clickedButtonLabel;
-    // edit 
+    // store the edited fields 
     draftValues = [];
-    // pagination
+    // pset page number
     pageNumber = 0;
+    // set the number of row to display per page
     pageSize = 10;
-    // totalRecords = 0;
     // Rows to display
     rowsDisplayed = [];
     // All selected Id values
     allSelectedRows = new Set();
-    // Current page data rows
-    // pageData = [];
-    // All existing rows
-    allData;
-
-    // sorting
-    sortedBy;
-    sortedDirection;
+    // default sorting behaviour
+    sortedBy = 'Name';
+    sortedDirection = 'asc';
 
     @wire(getOppsList)
     opps;
@@ -72,6 +67,7 @@ export default class AllOpps extends LightningElement {
     //  Credit to https://studio.webcomponents.dev/edit/88mc3Gx8E4OZNksS14kZ/src/app.html?p=stories
     get pageData() {
         console.log("Opps data  ===== ", this.opps.data)
+        // 0 based index so default is (0, 10) excluding the 10th index
         return this.opps.data.slice(this.pageNumber*10, this.pageNumber*10+10)
     }
 
@@ -247,25 +243,24 @@ export default class AllOpps extends LightningElement {
     // The method onsort event handler
     handleOnSort(event) {
         // assign the latest attribute with the sorted column fieldName and sorted direction
-        console.log(" @@@@  on sort EVENT  @@@@ ", event)
         this.sortedBy = event.detail.fieldName;
-        console.log(" @@@@  EVENT sorted by  @@@@ ", this.sortedBy)
         this.sortedDirection = event.detail.sortDirection;
-        console.log(" @@@@  EVENT sorted direction   @@@@ ", this.sortedDirection)
+        // call the sortData method with the variables needed for sorting 
         this.sortData(this.sortedBy, this.sortedDirection);
    }
 
+    // credit to https://www.apexhours.com/lightning-datatable-sorting-in-lightning-web-components/
     sortData(fieldname, direction) {
-        console.log("@@@ page data @@@", this.pageData)
-        // Get all the data (not only the page data)
+        // Convert all the data to strings (not only the page data)
         let parseData = JSON.parse(JSON.stringify(this.opps.data));
-        // Return the value stored in the field
+        // Return the value stored in the fieldname key
+        // Added toUpperCase in order to prevent difference of letter ascii unicode value
+        console.log("fieldname ===> ", fieldname)
         let keyValue = (a) => {
-            return a[fieldname];
+            return fieldname !== 'Amount' ? a[fieldname].toUpperCase() : a[fieldname];
         };
-        // cheking reverse direction
+        // setting direction
         let isReverse = direction === 'asc' ? 1: -1;
-        console.log("@@@ is reverse  @@@", isReverse)
         // sorting data
         parseData.sort((x, y) => {
             x = keyValue(x) ? keyValue(x) : ''; // handling null values
@@ -279,8 +274,10 @@ export default class AllOpps extends LightningElement {
     // reset/reload button
     handleReset() {
         this.pageNumber = 0;
-        refreshApex(this.opps.data)
-        refreshApex(this.oppsCount.data)
+        // this.sortedBy = 'Name';
+        // this.sortedDirection = 'asc';
+        // refreshApex(this.opps.data)
+        // refreshApex(this.oppsCount.data)
     }
 
     // show row details ====>>> Not done yet 
@@ -299,15 +296,8 @@ export default class AllOpps extends LightningElement {
     
     // next page
     handleNext() {
-        console.log("======    handleNext    ======")
-        console.log(" this.currentPAgeNumber  before if statement =>>> ", this.currentPageNumber)
-        console.log(" this.total apges  before if statement =>>> ", this.totalPages)
         if (this.currentPageNumber < this.totalPages) {
-            console.log(" <<<<<< Inside the iffff >>>>>>> ")
-            console.log(" this.currentPAgeNumber  =>>> ", this.currentPageNumber)
-            console.log(" this.PAgeNumber  =>>> ", this.pageNumber)
             this.pageNumber++;
-            console.log(" this.PAgeNumber after ++++ =>>> ", this.pageNumber)
         }
     }
 
@@ -318,7 +308,6 @@ export default class AllOpps extends LightningElement {
 
     // navigate to last page
     handleLast() {
-        console.log("total pages for handleLast ==>>>>>", this.totalPages)
         this.pageNumber = this.totalPages-1;
     }
 

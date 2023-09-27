@@ -40,27 +40,6 @@ public with sharing class OppsList {
     public static Integer getAllOpps(){
         return [ SELECT COUNT() FROM Opportunity WITH SECURITY_ENFORCED ];
     }
-    
-    // change page
-    @AuraEnabled(cacheable=true)
-    public static List<Opportunity> handlePageChange(Integer currentPageNumber){
-        Integer offsetQty = currentPageNumber;
-        return [
-            SELECT
-            id,
-            Name,
-            Account.Name,
-            Amount,
-            CloseDate,
-            StageName,
-            OwnerId
-            FROM Opportunity
-            WITH SECURITY_ENFORCED
-            ORDER BY Name
-            LIMIT 10
-            OFFSET :offsetQty
-        ];
-    }
 
     // update opp
     @AuraEnabled

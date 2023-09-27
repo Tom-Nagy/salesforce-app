@@ -8,3 +8,6 @@ lwc
 @wire
 @api
 cls
+toUpperCase
+@AuraEnabled
+cacheable
