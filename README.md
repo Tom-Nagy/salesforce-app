@@ -185,10 +185,37 @@ The query compiles and thus is type-checked at compile time.
       }
   }
   ```
-  * The method ***getOppsList*** returns the list of opportunities records (as an Array) by querying the Opportunity object.
-  * I used SOQL to write the queries referencing the object and the fields on the object. 
+  * The method ```getOppsList()``` returns the list of opportunities records (as an Array) by querying the Opportunity object.
+  * I used SOQL to write the queries referencing the object and the fields on the object.
+* ```apex
+  // credit https://gist.github.com/sohalloran/5be1daf94a2d4e8fcd92df2cf6988e62
+  @AuraEnabled(cacheable=true)
+  public static Integer getAllOpps(){
+      return [ SELECT COUNT() FROM Opportunity WITH SECURITY_ENFORCED ];
+  }
+  ```
+  * The Method ```getAllOpps()``` returns the count of all the opportunities.
+  * This is used for the pagination functionality.
+* ```apex
+  // update opp
+  @AuraEnabled
+  public static void updateOpp(List<Opportunity> oppToUpdate) {
+      update oppToUpdate;
+  }
+  ```
+  * The method ```updateOpp()``` use the update SOQL method to update records in the database.
+  * An array (*oppToUpdate*) is passed to the method which is the array of records and fields to update.
+* ```apex
+  // delete opp 
+  @AuraEnabled
+  public static void deleteOpp(List<Opportunity> oppToDelete){
+      delete oppToDelete;
+  }
+  ```
+  * The method ```deleteOpp()``` use the delete SOQL method to delete records in the database.
+  * An array (*oppToDelete*) is passed to the method which is the array of records to delete.
 
-Follow the steps below to create an anonymous script to test the apexlass.
+Follow the steps below to create an anonymous script to test the apex class.
 
 * Create a new file <your_file_name>.apex in the scripts/apex folder.
 * Replace the contents of the file with the following code: System.debug(<your_class_name>.<your_method>()); :arrow_right: ```System.debug(OppsList.getOppsList());```
