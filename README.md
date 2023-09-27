@@ -1,6 +1,6 @@
 # **salesforce-app**
 
-![Mockup](assets/images/README-images/mockups/ami-responsive-website.png)
+![Mockup](assets/images/README-images/opps-mockup.png)
 
 Link to the Opps app org : **[Opps](https://d06000001b8weeay-dev-ed.develop.lightning.force.com/lightning/n/opps)**.
 
@@ -313,7 +313,7 @@ Data Manipulation Language DML statement
 https://trailhead.salesforce.com/content/learn/modules/lightning-web-components-and-salesforce-data/use-apex-to-work-with-data?trail_id=build-lightning-web-components&trailmix_creator_id=sakthivel&trailmix_slug=lightning-web-component-lwc
 
 https://developer.salesforce.com/docs/platform/lwc/guide/js-props-getters-setters.html
-getter setter fucntions
+getter setter functions
 
 https://www.lightningdesignsystem.com/utilities/
 ==> style classes
