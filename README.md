@@ -1,20 +1,22 @@
 # **salesforce-app**
 
 ![Mockup](assets/images/README-images/mockups/ami-responsive-website.png)
-#### link to the Opps app org : **[Opps](https://d06000001b8weeay-dev-ed.develop.lightning.force.com/lightning/n/opps)**.
 
-
+Link to the Opps app org : **[Opps](https://d06000001b8weeay-dev-ed.develop.lightning.force.com/lightning/n/opps)**.
 
 ## Table of Content
 
 * [Project](#Project)
 * [Project Goals](#Project-Goals)
-* [Developer and Business Goals](#Developer-and-Business-Goals)
-* [User Goals](#User-Goals)
+* [Steps taken](#Steps-taken)
+* [Components](#Components)
+* [Bugs](#Bugs)
+  - [Solved](#Solved)
+* [Credit and Docs](#Credit-and-Docs)
 
 ## Project
 
-Sign up for a Developer Edition org here: https://developer.salesforce.com/signup?d=70130000000td6N
+Sign up for a Developer Edition org here: https://developer.salesforce.com/signup?d=70130000000td6N  
 :spiral_notepad: hotmails email address do not work, so please use a gmail address.
 
 All the Salesforce Documentation is here: https://developer.salesforce.com/docs
@@ -200,9 +202,13 @@ Click Setup, then select Edit Page.
 Drag the opps Lightning web component from the custom area of the Lightning Components list to the top of the Page Canvas.
 
 
+## Bugs
+
+### Solved
 
 
-## Credit / library 
+
+## Credit and Docs 
 
 https://www.lightningdesignsystem.com/utilities/
 ==> style classes
