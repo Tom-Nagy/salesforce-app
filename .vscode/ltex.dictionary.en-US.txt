@@ -1,2 +1,5 @@
 VScode
 Opps
+SOQL
+OppsList
+getOppsList

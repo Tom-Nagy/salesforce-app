@@ -9,10 +9,14 @@ Link to the Opps app org : **[Opps](https://d06000001b8weeay-dev-ed.develop.ligh
 * [Project](#Project)
   * [Project Goals](#Project-Goals)
 * [Setup](#Setup)
-* [Components](#Components)
+* [Create a Lightning Web Component](#Create-a-Lightning-Web-Component)
+* [Create an App, a Page and deploy your LWC](#create-an-app-a-page-and-deploy-your-lwc)
+* [Code components](#code-components)
+  * [Apex]
 * [Bugs](#Bugs)
   - [Solved](#Solved)
 * [Credit and Docs](#Credit-and-Docs)
+* [Commands](#commands)
 
 ## Project
 
@@ -29,8 +33,6 @@ The project has for aim to see your abilities to understand, review and implemen
 
 There should be some amount of visualforce and apex involved in this project.
 
-Some candidates may approach this from the perspective of lightning aura components or lightning web components, which is fine also.
-
 ### Project Goals
 
 * :white_check_mark: Create a page(visualforce)/application(aura,LWC) that lists standard or custom objects (you can choose what object to list)
@@ -43,7 +45,6 @@ Clicking on the same column header repeatedly will reverse the order of sorting
 * :white_check_mark: The list is interactive: the user can perform an action on each row of the list (click a button or select a checkbox on each row); a separate action button will perform some action on each of the selected rows.
 
 :spiral_notepad: Note: To achieve this you should look into using a custom controller or extension controller.
-The candidates are asked to explain in detail the processes, methods and justification for taking the approaches they’ve decided upon. As well as a number of followup questions.
 
 ## Setup
 
@@ -111,7 +112,7 @@ This will create all needed files for the LWC
 
 Save the files and right-click on the ```lwc``` folder and select ```SFDX: Deploy Source to Org```.
 
-## Create an App and deploy your LWC
+## Create an App, a Page and deploy your LWC
 
 ### Create a lightning App
 
@@ -137,29 +138,61 @@ All the steps are found in the following Trailhead [Lightning app builder](https
 8. Select Activate now.
 9. Name your page, select where it should be available.
 
-## Create and Deploy the Apex Class
+## Code components
 
-In Visual Studio Code, under force-app/main/default, right-click on the classes sub-folder and select SFDX: Create Apex Class
+### Apex Class
 
-Code Highlights
-In this code, you create a class OppsList that has a method named getRecords. The method returns the list of opportunities records (as an Array) by querying the Opportunity object.
+In Visual Studio Code, under ```force-app/main/default```, right-click on the ```classes``` sub-folder and select ```SFDX: Create Apex Class```.
 
-We've used SOQL to write our queries referencing the object and the fields on the object. The query compiles and thus is type-checked at compile time.
+In this project, I created a class **OppsList** that has several methods.  
+The query compiles and thus is type-checked at compile time.
+
+### Code Highlights
+  
+* ```apex
+  public static List<Opportunity> getOppsList(){
+      try {
+          // Create a list of opportunities records from a SOQL query
+          List<Opportunity> opportunityList = [
+              SELECT
+              id,
+              Name,
+              Account.Name,
+              Amount,
+              CloseDate,
+              StageName,
+              OwnerId
+              FROM Opportunity
+              WITH SECURITY_ENFORCED
+              ORDER BY Name
+          ];
 
 
-Save this file.
-Right-click HouseService.cls and select SFDX: Deploy Source to Org.
+          // Maybe create 2 custom field on the opportunity object and get the account name and cast it in the custom field
+          // Likewise for the Username, but there is not parent/child relationship so might need to get the corresponding Users in a query
+          // List<String> accountNameList;
 
+
+          // for (Opportunity opp : opportunityList) {
+          //     accountNameList.add(opp.Account.Name);
+          // } 
+
+          return opportunityList;
+          
+      } catch (Exception e) {
+          // Exception handling
+          throw new AuraHandledException(e.getMessage());
+      }
+  }
+  ```
+  * The method ***getOppsList*** returns the list of opportunities records (as an Array) by querying the Opportunity object.
+  * I used SOQL to write the queries referencing the object and the fields on the object. 
 
 Follow the steps below to create an anonymous script to test the apexlass.
 
-Create a new file named oppseappTest.apex in the scripts/apex folder.
-Replace the contents of the file with the following code: System.debug(OppsList.getRecords());
-Open the Command Palette by pressing Ctrl+Shift+P (Windows) or Cmd+Shift+P (macOS/Linux) and type/select Execute Anonymous Apex.
-
-
-
-
+* Create a new file <your_file_name>.apex in the scripts/apex folder.
+* Replace the contents of the file with the following code: System.debug(<your_class_name>.<your_method>()); :arrow_right: ```System.debug(OppsList.getOppsList());```
+* Open the Command Palette by pressing Ctrl+Shift+P (Windows) or Cmd+Shift+P (macOS/Linux) and type/select ```Execute Anonymous Apex```.
 
 ### select LWC component
 
@@ -188,22 +221,18 @@ https://www.lightningdesignsystem.com/utilities/
 
 ******************************** EXTRA ********************************
 
-1. Use lightning app builder to make:
-- a lightning page (home page)
-- a lightning record page
-- Custom Record Page
 
-
-
-## deploy metadata to your org
-
-
+## Commands
 
 Enter this command to deploy the metadata to your org:
 ```sf project deploy start```
 
 This will open the default scratch org in a browser.
 ```sf org open```
+
+
+Save this file.
+Right-click on the page and select ```SFDX: Deploy Source to Org```.
 
 *****************************************************************************************************************************
 *****************************************************************************************************************************
