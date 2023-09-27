@@ -1,20 +1,21 @@
 # **salesforce-app**
 
 ![Mockup](assets/images/README-images/mockups/ami-responsive-website.png)
-#### Visit the live Website : **[Know It :arrow_right:](https://tom-nagy.github.io/know-it/)**.
+#### link to the Opps app org : **[Opps](https://d06000001b8weeay-dev-ed.develop.lightning.force.com/lightning/n/opps)**.
 
 
 
 ## Table of Content
 
-* [Project]("#Project)
-  * [Project Goals](#Project-Goals)
-  * [Developer and Business Goals](#Developer-and-Business-Goals)
-  * [User Goals](#User-Goals)
+* [Project](#Project)
+* [Project Goals](#Project-Goals)
+* [Developer and Business Goals](#Developer-and-Business-Goals)
+* [User Goals](#User-Goals)
 
+## Project
 
-  Sign up for a Developer Edition org here: https://developer.salesforce.com/signup?d=70130000000td6N
-  ==>>> hotmail email address do not work so please use a gmail address.
+Sign up for a Developer Edition org here: https://developer.salesforce.com/signup?d=70130000000td6N
+:spiral_notepad: hotmails email address do not work, so please use a gmail address.
 
 All the Salesforce Documentation is here: https://developer.salesforce.com/docs
 
@@ -28,16 +29,18 @@ There should be some amount of visualforce and apex involved in this project.
 
 Some candidates may approach this from the perspective of lightning aura components or lightning web components, which is fine also.
 
-1-  Create a page(visualforce)/application(aura,LWC) that lists standard or custom objects (you can choose what object to list)
-2- The list can have several column headers (name, created date, etc, of your choice)
-3- The list can be sortable by any of these column headers (e.g. sort by created date)
+## Project Goals
+
+1. :white_check_mark: Create a page(visualforce)/application(aura,LWC) that lists standard or custom objects (you can choose what object to list)
+2. :white_check_mark: The list can have several column headers (name, created date, etc, of your choice)
+3. :white_check_mark: The list can be sortable by any of these column headers (e.g. sort by created date)
 Bonus: Add visual indication (e.g. ▲ or ▼) on clicked column to display sorting direction
 Clicking on the same column header repeatedly will reverse the order of sorting
-4- The list is paginated; users can cycle between X number of rows by using custom links or buttons. First, Last, Previous, and Next pagination actions are required, and their corresponding custom button/link should be enabled only if action can be performed.
+4. :white_check_mark: The list is paginated; users can cycle between X number of rows by using custom links or buttons. First, Last, Previous, and Next pagination actions are required, and their corresponding custom button/link should be enabled only if action can be performed.
 Bonus: Display current page number and total pages.
-- The list is interactive: the user can perform an action on each row of the list (click a button or select a checkbox on each row); a separate action button will perform some action on each of the selected rows.
+5. :white_check_mark: The list is interactive: the user can perform an action on each row of the list (click a button or select a checkbox on each row); a separate action button will perform some action on each of the selected rows.
 
-Note: To achieve this you should look into using a custom controller or extension controller.
+:spiral_notepad: Note: To achieve this you should look into using a custom controller or extension controller.
 The candidates are asked to explain in detail the processes, methods and justification for taking the approaches they’ve decided upon. As well as a number of followup questions.
 
 
