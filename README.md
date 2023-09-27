@@ -17,7 +17,7 @@ Link to the Opps app org : **[Opps](https://d06000001b8weeay-dev-ed.develop.ligh
 ## Project
 
 Sign up for a Developer Edition org here: https://developer.salesforce.com/signup?d=70130000000td6N  
-:spiral_notepad: hotmails email address do not work, so please use a gmail address.
+:warning: hotmails email addresses do not work, so please use a gmail address.
 
 All the Salesforce Documentation is here: https://developer.salesforce.com/docs
 
@@ -33,14 +33,14 @@ Some candidates may approach this from the perspective of lightning aura compone
 
 ## Project Goals
 
-1. :white_check_mark: Create a page(visualforce)/application(aura,LWC) that lists standard or custom objects (you can choose what object to list)
-2. :white_check_mark: The list can have several column headers (name, created date, etc, of your choice)
-3. :white_check_mark: The list can be sortable by any of these column headers (e.g. sort by created date)
-Bonus: Add visual indication (e.g. ▲ or ▼) on clicked column to display sorting direction
+* :white_check_mark: Create a page(visualforce)/application(aura,LWC) that lists standard or custom objects (you can choose what object to list)
+* :white_check_mark: The list can have several column headers (name, created date, etc, of your choice)
+* :white_check_mark: The list can be sortable by any of these column headers (e.g. sort by created date)
+:star: Bonus: Add visual indication (e.g. ▲ or ▼) on clicked column to display sorting direction
 Clicking on the same column header repeatedly will reverse the order of sorting
-4. :white_check_mark: The list is paginated; users can cycle between X number of rows by using custom links or buttons. First, Last, Previous, and Next pagination actions are required, and their corresponding custom button/link should be enabled only if action can be performed.
-Bonus: Display current page number and total pages.
-5. :white_check_mark: The list is interactive: the user can perform an action on each row of the list (click a button or select a checkbox on each row); a separate action button will perform some action on each of the selected rows.
+* :white_check_mark: The list is paginated; users can cycle between X number of rows by using custom links or buttons. First, Last, Previous, and Next pagination actions are required, and their corresponding custom button/link should be enabled only if action can be performed.
+:star: Bonus: Display current page number and total pages.
+* :white_check_mark: The list is interactive: the user can perform an action on each row of the list (click a button or select a checkbox on each row); a separate action button will perform some action on each of the selected rows.
 
 :spiral_notepad: Note: To achieve this you should look into using a custom controller or extension controller.
 The candidates are asked to explain in detail the processes, methods and justification for taking the approaches they’ve decided upon. As well as a number of followup questions.
