@@ -10,23 +10,23 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 // import OWNER_NAME from "@salesforce/schema/Opportunity.Owner";
 
 const actions = [
-    { label: 'Show details', name: 'show_details' },
+    // { label: 'Show details', name: 'show_details' }
     { label: 'Delete', name: 'delete' }
 ];
 
 const COLUMNS = [
     { label: 'Opportunity name', fieldName: 'Name', type: 'text',
      editable: true, sortable: true },
-    { label: 'Account name', fieldName: "AccountId", type: 'text',
-     editable: false },
+    // { label: 'Account name', fieldName: "AccountId", type: 'text',
+    //  editable: false },
     { label: 'Amount', fieldName: 'Amount', type: 'currency', typeAttributes: { currencyCode: 'EUR' },
      editable: false, sortable: true },
     { label: 'Close date', fieldName: 'CloseDate', type: 'date',
      editable: true, sortable: true },
     { label: 'Satge', fieldName: 'StageName', type: 'picklist',
      editable: true, sortable: true },
-    { label: 'Opp Owner', fieldName: 'OwnerId', type: 'text',
-     editable: false },
+    // { label: 'Opp Owner', fieldName: 'OwnerId', type: 'text',
+    //  editable: false },
     { type: 'action', typeAttributes: { rowActions: actions, menuAlignment: 'auto' } }
 
 ];
@@ -97,8 +97,6 @@ export default class AllOpps extends LightningElement {
     // Row selection
     getSelectedName(event) {
         this.selectedRows = event.detail.selectedRows;
-        //Display that fieldName of the selected rows
-        // console.log("======  getselectedName EVENT ========", event)
         console.log("======   getselectedName selected row ========", this.selectedRows)
         for (let i = 0; i < this.selectedRows.length; i++) {
             this.dispatchEvent(
@@ -117,10 +115,7 @@ export default class AllOpps extends LightningElement {
         this.clickedButtonLabel = event.target.label;
         console.log(" --- button label   --- ", this.clickedButtonLabel)
         if (this.clickedButtonLabel === "Bulk Delete"){
-            console.log("<<<<<<<  deleted all selected  >>>>>>>>");
             const selection = this.selectedRows
-            console.log("<<<<<<<  display selection  >>>>>>>>", selection);
-
             try {
                 // Pass edited fields to the updateContacts Apex controller
                 await deleteOpp({ oppToDelete: selection });
@@ -240,7 +235,6 @@ export default class AllOpps extends LightningElement {
     }
 
     // Sort datatable
-    // The method onsort event handler
     handleOnSort(event) {
         // assign the latest attribute with the sorted column fieldName and sorted direction
         this.sortedBy = event.detail.fieldName;
@@ -271,13 +265,12 @@ export default class AllOpps extends LightningElement {
         this.opps.data = parseData;
     }    
 
-    // reset/reload button
+    // reset page
     handleReset() {
         this.pageNumber = 0;
-        // this.sortedBy = 'Name';
-        // this.sortedDirection = 'asc';
-        // refreshApex(this.opps.data)
-        // refreshApex(this.oppsCount.data)
+        this.sortedBy = 'Name';
+        this.sortedDirection = 'asc';
+        this.sortData(this.sortedBy, this.sortedDirection);
     }
 
     // show row details ====>>> Not done yet 
