@@ -273,7 +273,17 @@ Follow the steps below to create an anonymous script to test the apex class.
 
 ### HTML file opps.html
 
-
+* Template tag for lwc structure.
+* Lightning-card that envelope all the other components.
+* Two different templates, one to display if data is returned and one to display if error is returned.
+* lightning-button-group
+  * one button to refresh the page.
+  * one button used for bulk delete.
+* lightning-datatable to display the data.
+* Pagination:
+  * first and last page buttons.
+  * previous and next buttons.
+  * information on the current page number, total page number and total records.
 
 ## Bugs
 
@@ -317,6 +327,7 @@ Value provided is invalid for action parameters 'oppToDelete' of type 'List'
 
 * Credit to https://gist.github.com/sohalloran/5be1daf94a2d4e8fcd92df2cf6988e62 for the count Apex method.
 * Credit to https://www.apexhours.com/lightning-datatable-sorting-in-lightning-web-components/ for the sortData method.
+* Credit to https://studio.webcomponents.dev/edit/88mc3Gx8E4OZNksS14kZ/src/app.html?p=stories for pagination help.
 
 ### Documentation
 
@@ -343,3 +354,5 @@ Value provided is invalid for action parameters 'oppToDelete' of type 'List'
   * Component library.
 * https://developer.salesforce.com/docs/component-library/bundle/lightning:datatable/documentation
   * Datatable.
+* https://github.com/trailheadapps/lwc-recipes/tree/main/force-app/main/default/lwc
+  * lwc-recipes project for pagination and general project reference.
