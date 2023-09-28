@@ -15,9 +15,7 @@ Link to the Opps app org : **[Opps](https://d06000001b8weeay-dev-ed.develop.ligh
   * [Apex class](#apex-class-oppslistcls)
   * [JavaScript file opps.js](#javascript-file-oppsjs)
 * [Bugs](#Bugs)
-  - [Solved](#Solved)
-* [Credit and Docs](#Credit-and-Docs)
-* [Commands](#commands)
+* [Credit](#credit)
 
 ## Project
 
@@ -96,8 +94,9 @@ Your project is now connected to the Trailhead Playground, and you can use ```sf
 
 ## Create a Lightning Web Component
 
-In VSCode, under the ```force-app/main/default```, right-click the ```lwc``` folder and select ```SFDX: Create Lightning Web Component```.
-Name the Lightning web component, (I choose Opps), and select the ```main/default/lwc``` directory.
+1. In VS Code, under the ```force-app/main/default```, right-click the ```lwc``` folder
+2. Select ```SFDX: Create Lightning Web Component```.
+3. Name the Lightning web component, (I choose Opps), andß select the ```main/default/lwc``` directory.
 
 The same can be achieved from the terminal:
 
@@ -255,7 +254,7 @@ Follow the steps below to create an anonymous script to test the apex class.
 * Replace the contents of the file with the following code: System.debug(<your_class_name>.<your_method>()); :arrow_right: ```System.debug(OppsList.getOppsList());```
 * Open the Command Palette by pressing Ctrl+Shift+P (Windows) or Cmd+Shift+P (macOS/Linux) and type/select ```Execute Anonymous Apex```.
 
-## JavaScript file opps.js
+### JavaScript file opps.js
 
 * Import LightningElement and wire from the lwc engine.
 * Import the apex methods defined in OppsList that we are using in this file.
@@ -268,86 +267,79 @@ Follow the steps below to create an anonymous script to test the apex class.
   * first page and last page attribute set to false or right depending on the page number compared to the total number of pages.
 * I have implemented methods to:
   * navigate through pages of records
-  * reset the page
+  * reset the app
   * delete single row
   * bulk delete selected rows
 
+### HTML file opps.html
+
+
+
 ## Bugs
 
-Sorting on opportunity name was not sorting correctly
-=> comparison of uppercase and lower case letter which holds different values in ascii.
-=> add toUpperCase() method in order to compare with same data and solve the issue.
-```return a[fieldname].toUpperCase()```
+### No data returned
 
-===> created a bug upon sorting on the amount column
-=> conversion to uppercase does not work for currencies or integer values
-=> added a conditional statement to check on which column it is sorting on
-```return fieldname !== 'Amount' ? a[fieldname].toUpperCase() : a[fieldname];```
+![Cannot read data](assets/images/README-images/error-cannot-read-data.png)  
+Cannot read data of undefined.  
 
+* Issue:
+  * I was returning opportunityList method instead of getOppsList using @wire.  
+* Solution:
+  * When using the declarative/imperative way of returning data from the apex class it needed to be ```opportunityList({error, data}){...}```.
 
-### Solved
+### Invalid action parameters
 
-## Terminology and definitions
+![Invalid action parameters of type list](assets/images/README-images/invalid-action-parameters-of-type-list.png)  
+Value provided is invalid for action parameters 'oppToDelete' of type 'List'  
 
-* @AuraEnabled(cacheable=true) 
-  * @AuraEnabled => ?
-  * (cacheable=true) => ?
+* Issue:
+  * I was passing an object instead of a list to the ```deleteOpp()``` method.
+* Solution:
+  * Changed the JavaScript method to convert object to list, i.e. changed the parameter passed from ```row``` to ```[row]```.
 
-* SOQL methods
-  * delete and update
+### Sorting not working
 
-* @wire
+* Issue:
+  * Sorting on opportunity name was not working correctly.
+  * The comparison of uppercase and lower case letter which holds different values in ascii caused a sorting issue.
+* Solution:
+  * Add toUpperCase() method in order to compare with same data: ```return a[fieldname].toUpperCase()```.
 
-* @track
+* Issue:
+  * The above fix created a bug upon sorting on the amount column.
+  * Conversion to uppercase does not work for currencies, i.e. integer values.
+* Solution:
+  * Add a conditional statement to check on which column it is sorting on: ```return fieldname !== 'Amount' ? a[fieldname].toUpperCase() : a[fieldname];```.
 
 ## Credit
 
 ### Content
 
-credit to https://gist.github.com/sohalloran/5be1daf94a2d4e8fcd92df2cf6988e62 for the count Apex method
-
-Credit to https://www.apexhours.com/lightning-datatable-sorting-in-lightning-web-components/ for the sortData method.
+* Credit to https://gist.github.com/sohalloran/5be1daf94a2d4e8fcd92df2cf6988e62 for the count Apex method.
+* Credit to https://www.apexhours.com/lightning-datatable-sorting-in-lightning-web-components/ for the sortData method.
 
 ### Documentation
 
-https://trailhead.salesforce.com/content/learn/modules/lightning-web-components-basics/discover-lightning-web-components?trail_id=force_com_dev_beginner
-LWC basics
-Decorator
-Modules
+#### Trailheads
 
-https://trailhead.salesforce.com/content/learn/projects/get-started-with-salesforce-development/write-business-logic-in-apex?trail_id=force_com_dev_beginner
-Build base class to query data
+* https://trailhead.salesforce.com/content/learn/modules/lightning-web-components-basics/discover-lightning-web-components?trail_id=force_com_dev_beginner
+  * LWC basics.
+  * Decorator.
+  * Modules.
+* https://trailhead.salesforce.com/content/learn/projects/get-started-with-salesforce-development/write-business-logic-in-apex?trail_id=force_com_dev_beginner
+  * Build base class to query data.
+* https://trailhead.salesforce.com/content/learn/modules/apex_database/apex_database_dml
+  * Data Manipulation Language DML statement.
+* https://trailhead.salesforce.com/content/learn/modules/lightning-web-components-and-salesforce-data/use-apex-to-work-with-data?trail_id=build-lightning-web-components&trailmix_creator_id=sakthivel&trailmix_slug=lightning-web-component-lwc
+  * Working with LWC and Apex.
 
-https://trailhead.salesforce.com/content/learn/modules/apex_database/apex_database_dml
-Data Manipulation Language DML statement
+#### Developer
 
-https://trailhead.salesforce.com/content/learn/modules/lightning-web-components-and-salesforce-data/use-apex-to-work-with-data?trail_id=build-lightning-web-components&trailmix_creator_id=sakthivel&trailmix_slug=lightning-web-component-lwc
-
-https://developer.salesforce.com/docs/platform/lwc/guide/js-props-getters-setters.html
-getter setter functions
-
-https://www.lightningdesignsystem.com/utilities/
-==> style classes
-
-navigate to https://developer.salesforce.com/docs/component-library/overview/components
-Search for list 
-
-0000000 https://developer.salesforce.com/docs/component-library/bundle/lightning-layout/example
-
-## Commands
-
-Enter this command to deploy the metadata to your org:
-```sf project deploy start```
-
-This will open the default scratch org in a browser.
-```sf org open```
-
-
-Save this file.
-Right-click on the page and select ```SFDX: Deploy Source to Org```.
-
-*****************************************************************************************************************************
-*****************************************************************************************************************************
-*****************************************************************************************************************************
-
-
+* https://developer.salesforce.com/docs/platform/lwc/guide/js-props-getters-setters.html
+  * Getter setter functions.
+* https://www.lightningdesignsystem.com/utilities/
+  * Style classes.
+* https://developer.salesforce.com/docs/component-library/overview/components
+  * Component library.
+* https://developer.salesforce.com/docs/component-library/bundle/lightning:datatable/documentation
+  * Datatable.

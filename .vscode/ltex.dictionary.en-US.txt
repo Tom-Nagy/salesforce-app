@@ -11,3 +11,5 @@ cls
 toUpperCase
 @AuraEnabled
 cacheable
+oppToDelete
+deleteOpp
